@@ -1,0 +1,739 @@
+{
+  "meta": {
+    "origin": "https://openam-<tenant>/platform/?realm=alpha#/journeys",
+    "exportedBy": "darinder.shokar@pingidentity.com",
+    "exportDate": "2026-03-20T12:24:06.263Z",
+    "exportTool": "platform-admin ui tree export",
+    "exportToolVersion": "1.0",
+    "treesSelectedForExport": [
+      "simpleBackChannel",
+      "simpleFrontChannel"
+    ],
+    "innerTreesIncluded": []
+  },
+  "trees": {
+    "simpleBackChannel": {
+      "tree": {
+        "_id": "simpleBackChannel",
+        "_rev": "-1869440349",
+        "identityResource": "managed/alpha_user",
+        "entryNodeId": "3e21af99-7361-4d7f-ae03-16e05ccbced9",
+        "innerTreeOnly": false,
+        "noSession": false,
+        "mustRun": false,
+        "enabled": true,
+        "transactionalOnly": false,
+        "uiConfig": {
+          "categories": "[]",
+          "annotations": "{\"forNodes\":{},\"structural\":[]}"
+        },
+        "nodes": {
+          "f15174b8-bb13-495c-9750-3a838982bcf3": {
+            "x": 165,
+            "y": 338.76666259765625,
+            "connections": {
+              "Success": "c641f21e-04af-4098-a50a-7b708a6ec654"
+            },
+            "nodeType": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "displayName": "User Message to Display",
+            "version": "1.0"
+          },
+          "c641f21e-04af-4098-a50a-7b708a6ec654": {
+            "x": 484,
+            "y": 316.76666259765625,
+            "connections": {
+              "Success": "2247d8a0-4f79-458a-a1eb-5ecfaa83eed3",
+              "Error": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "designer-e4a9455782434716b7f3e9540006d7f1",
+            "displayName": "Set Front Channel Status",
+            "version": "1.0"
+          },
+          "3e21af99-7361-4d7f-ae03-16e05ccbced9": {
+            "x": 162,
+            "y": 46.76666259765625,
+            "connections": {
+              "Success": "bfcd6ad2-d9b4-4268-8734-b27929c6d17f"
+            },
+            "nodeType": "designer-e4a9455782434716b7f3e9540006d7f1",
+            "displayName": "Set Front Channel Status",
+            "version": "1.0"
+          },
+          "2247d8a0-4f79-458a-a1eb-5ecfaa83eed3": {
+            "x": 488,
+            "y": 456.76666259765625,
+            "connections": {
+              "success": "8beb4c84-de18-475a-bc59-c954d9a93268",
+              "error": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "BackchannelNotificationNode",
+            "displayName": "Backchannel Notification",
+            "version": "1.0"
+          },
+          "bfcd6ad2-d9b4-4268-8734-b27929c6d17f": {
+            "x": 163,
+            "y": 186.76666259765625,
+            "connections": {
+              "success": "f15174b8-bb13-495c-9750-3a838982bcf3",
+              "error": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "BackchannelNotificationNode",
+            "displayName": "Backchannel Notification",
+            "version": "1.0"
+          },
+          "8beb4c84-de18-475a-bc59-c954d9a93268": {
+            "x": 491,
+            "y": 600.7666625976562,
+            "connections": {
+              "Success": "1f38979a-211e-4d1c-b402-ea39b300238f"
+            },
+            "nodeType": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "displayName": "User Message to Display",
+            "version": "1.0"
+          },
+          "1f38979a-211e-4d1c-b402-ea39b300238f": {
+            "x": 846,
+            "y": 580.7666625976562,
+            "connections": {
+              "Success": "56cf9f0f-556d-438f-852b-a80b9583afa3",
+              "Error": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "designer-e4a9455782434716b7f3e9540006d7f1",
+            "displayName": "Set Front Channel Status",
+            "version": "1.0"
+          },
+          "56cf9f0f-556d-438f-852b-a80b9583afa3": {
+            "x": 847,
+            "y": 730.7666625976562,
+            "connections": {
+              "success": "214f10bf-f75a-49f5-ac29-4080472b7566",
+              "error": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "BackchannelNotificationNode",
+            "displayName": "Backchannel Notification",
+            "version": "1.0"
+          },
+          "214f10bf-f75a-49f5-ac29-4080472b7566": {
+            "x": 1177,
+            "y": 744.7666625976562,
+            "connections": {
+              "Success": "70e691a5-1e33-4ac3-a356-e7b6d60d92e0"
+            },
+            "nodeType": "designer-25847fefd09e42509a90afb3793e14c4",
+            "displayName": "Set Shared Or Transient State",
+            "version": "1.0"
+          }
+        },
+        "staticNodes": {
+          "startNode": {
+            "x": 50,
+            "y": 250
+          },
+          "70e691a5-1e33-4ac3-a356-e7b6d60d92e0": {
+            "x": 1509,
+            "y": 787
+          },
+          "e301438c-0bd0-429c-ab0c-66126501069a": {
+            "x": 1349,
+            "y": 263
+          }
+        }
+      },
+      "nodes": {
+        "f15174b8-bb13-495c-9750-3a838982bcf3": {
+          "_id": "f15174b8-bb13-495c-9750-3a838982bcf3",
+          "_rev": "785163595",
+          "message": "Updating status to: Status 1.",
+          "_type": {
+            "_id": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "name": "User Message to Display",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            }
+          ]
+        },
+        "c641f21e-04af-4098-a50a-7b708a6ec654": {
+          "_id": "c641f21e-04af-4098-a50a-7b708a6ec654",
+          "_rev": "-1742821852",
+          "journeyStatusValue": "Status 1",
+          "journeyStatusKey": "transaction:notify",
+          "journeyStatusProperty": "journeyStatus",
+          "_type": {
+            "_id": "designer-e4a9455782434716b7f3e9540006d7f1",
+            "name": "Set Front Channel Status",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            },
+            {
+              "id": "Error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "3e21af99-7361-4d7f-ae03-16e05ccbced9": {
+          "_id": "3e21af99-7361-4d7f-ae03-16e05ccbced9",
+          "_rev": "641723460",
+          "journeyStatusValue": "Back channel journey started.",
+          "journeyStatusKey": "transaction:notify",
+          "journeyStatusProperty": "journeyStatus",
+          "_type": {
+            "_id": "designer-e4a9455782434716b7f3e9540006d7f1",
+            "name": "Set Front Channel Status",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            },
+            {
+              "id": "Error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "2247d8a0-4f79-458a-a1eb-5ecfaa83eed3": {
+          "_id": "2247d8a0-4f79-458a-a1eb-5ecfaa83eed3",
+          "_rev": "-1649765876",
+          "dataKey": "transaction:notify",
+          "_type": {
+            "_id": "BackchannelNotificationNode",
+            "name": "Backchannel Notification",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "success",
+              "displayName": "Success"
+            },
+            {
+              "id": "error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "bfcd6ad2-d9b4-4268-8734-b27929c6d17f": {
+          "_id": "bfcd6ad2-d9b4-4268-8734-b27929c6d17f",
+          "_rev": "2081167163",
+          "dataKey": "transaction:notify",
+          "_type": {
+            "_id": "BackchannelNotificationNode",
+            "name": "Backchannel Notification",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "success",
+              "displayName": "Success"
+            },
+            {
+              "id": "error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "8beb4c84-de18-475a-bc59-c954d9a93268": {
+          "_id": "8beb4c84-de18-475a-bc59-c954d9a93268",
+          "_rev": "1517740955",
+          "message": "Updating status to: Status 2.",
+          "_type": {
+            "_id": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "name": "User Message to Display",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            }
+          ]
+        },
+        "1f38979a-211e-4d1c-b402-ea39b300238f": {
+          "_id": "1f38979a-211e-4d1c-b402-ea39b300238f",
+          "_rev": "321295752",
+          "journeyStatusValue": "Updating status to: Status 2.",
+          "journeyStatusKey": "transaction:notify",
+          "journeyStatusProperty": "journeyStatus",
+          "_type": {
+            "_id": "designer-e4a9455782434716b7f3e9540006d7f1",
+            "name": "Set Front Channel Status",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            },
+            {
+              "id": "Error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "56cf9f0f-556d-438f-852b-a80b9583afa3": {
+          "_id": "56cf9f0f-556d-438f-852b-a80b9583afa3",
+          "_rev": "-2031449216",
+          "dataKey": "transaction:notify",
+          "_type": {
+            "_id": "BackchannelNotificationNode",
+            "name": "Backchannel Notification",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "success",
+              "displayName": "Success"
+            },
+            {
+              "id": "error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "214f10bf-f75a-49f5-ac29-4080472b7566": {
+          "_id": "214f10bf-f75a-49f5-ac29-4080472b7566",
+          "_rev": "1784948904",
+          "state": "SHARED",
+          "values": [
+            "username=demo"
+          ],
+          "_type": {
+            "_id": "designer-25847fefd09e42509a90afb3793e14c4",
+            "name": "Set Shared Or Transient State",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            },
+            {
+              "id": "Error",
+              "displayName": "Error"
+            }
+          ]
+        }
+      },
+      "innerNodes": {},
+      "scripts": {},
+      "emailTemplates": {},
+      "socialIdentityProviders": {},
+      "themes": [],
+      "saml2Entities": {},
+      "circlesOfTrust": {}
+    },
+    "simpleFrontChannel": {
+      "tree": {
+        "_id": "simpleFrontChannel",
+        "_rev": "-1295796540",
+        "identityResource": "managed/alpha_user",
+        "entryNodeId": "8ea1a510-82cb-4380-9f0b-df0547649b36",
+        "innerTreeOnly": false,
+        "noSession": false,
+        "mustRun": false,
+        "enabled": true,
+        "transactionalOnly": false,
+        "uiConfig": {
+          "categories": "[]",
+          "annotations": "{\"forNodes\":{},\"structural\":[]}"
+        },
+        "nodes": {
+          "8ea1a510-82cb-4380-9f0b-df0547649b36": {
+            "x": 172,
+            "y": 249.76666259765625,
+            "connections": {
+              "Success": "0ee00aa2-82d6-413d-a612-3a01228a9a02"
+            },
+            "nodeType": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "displayName": "User Message to Display",
+            "version": "1.0"
+          },
+          "0ee00aa2-82d6-413d-a612-3a01228a9a02": {
+            "x": 468,
+            "y": 226.76666259765625,
+            "connections": {
+              "created": "92e831b1-b6c4-4c75-864d-753dfdd18a3d",
+              "error": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "BackChannelInitNode",
+            "displayName": "Backchannel Initialize",
+            "version": "1.0"
+          },
+          "dd793400-0fe2-4abf-99ef-37e0a61d4397": {
+            "x": 1066,
+            "y": 193.76666259765625,
+            "connections": {
+              "failure": "e301438c-0bd0-429c-ab0c-66126501069a",
+              "unknown": "e301438c-0bd0-429c-ab0c-66126501069a",
+              "error": "e301438c-0bd0-429c-ab0c-66126501069a",
+              "pending": "506b96e0-d247-42a6-8023-44568c1f7d21",
+              "inprogress": "d0755543-a702-47f5-949a-7897ee741f69",
+              "success": "d86a0c71-268e-43dc-b59d-6634a2eeea73"
+            },
+            "nodeType": "BackChannelStatusNode",
+            "displayName": "Backchannel Status",
+            "version": "1.0"
+          },
+          "92e831b1-b6c4-4c75-864d-753dfdd18a3d": {
+            "x": 758,
+            "y": 227.76666259765625,
+            "connections": {
+              "Next": "dd793400-0fe2-4abf-99ef-37e0a61d4397"
+            },
+            "nodeType": "PageNode",
+            "displayName": "Page Node",
+            "version": "1.0"
+          },
+          "506b96e0-d247-42a6-8023-44568c1f7d21": {
+            "x": 1067,
+            "y": 71.76666259765625,
+            "connections": {
+              "DONE": "dd793400-0fe2-4abf-99ef-37e0a61d4397"
+            },
+            "nodeType": "PollingWaitNode",
+            "displayName": "Polling Wait Node",
+            "version": "1.0"
+          },
+          "d0755543-a702-47f5-949a-7897ee741f69": {
+            "x": 1066,
+            "y": 445.76666259765625,
+            "connections": {
+              "DONE": "dd793400-0fe2-4abf-99ef-37e0a61d4397",
+              "EXITED": "e301438c-0bd0-429c-ab0c-66126501069a",
+              "SPAM": "e301438c-0bd0-429c-ab0c-66126501069a",
+              "CONFIGURATION_FAILED": "e301438c-0bd0-429c-ab0c-66126501069a"
+            },
+            "nodeType": "ConfigProviderNode",
+            "displayName": "Configuration Provider",
+            "version": "1.0"
+          },
+          "d86a0c71-268e-43dc-b59d-6634a2eeea73": {
+            "x": 1344,
+            "y": 288.76666259765625,
+            "connections": {
+              "Success": "4b4366df-6839-403c-a8ff-c484dcbfb1b6"
+            },
+            "nodeType": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "displayName": "User Message to Display",
+            "version": "1.0"
+          },
+          "4b4366df-6839-403c-a8ff-c484dcbfb1b6": {
+            "x": 1632,
+            "y": 293.76666259765625,
+            "connections": {},
+            "nodeType": "EmailSuspendNode",
+            "displayName": "Email Suspend Node",
+            "version": "1.0"
+          }
+        },
+        "staticNodes": {
+          "startNode": {
+            "x": 50,
+            "y": 250
+          },
+          "70e691a5-1e33-4ac3-a356-e7b6d60d92e0": {
+            "x": 1722,
+            "y": 454
+          },
+          "e301438c-0bd0-429c-ab0c-66126501069a": {
+            "x": 1578,
+            "y": 618
+          }
+        }
+      },
+      "nodes": {
+        "8ea1a510-82cb-4380-9f0b-df0547649b36": {
+          "_id": "8ea1a510-82cb-4380-9f0b-df0547649b36",
+          "_rev": "-1404625245",
+          "message": "Demo simulating back channel updates to this front channel journey.",
+          "_type": {
+            "_id": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "name": "User Message to Display",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            }
+          ]
+        },
+        "0ee00aa2-82d6-413d-a612-3a01228a9a02": {
+          "_id": "0ee00aa2-82d6-413d-a612-3a01228a9a02",
+          "_rev": "-528184330",
+          "redirectUrlType": "GET",
+          "dataKey": "backchannel:data",
+          "idType": "NONE",
+          "allowRetry": true,
+          "tree": "simpleBackChannel",
+          "timeout": 600,
+          "_type": {
+            "_id": "BackChannelInitNode",
+            "name": "Backchannel Initialize",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "created",
+              "displayName": "Created"
+            },
+            {
+              "id": "error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "dd793400-0fe2-4abf-99ef-37e0a61d4397": {
+          "_id": "dd793400-0fe2-4abf-99ef-37e0a61d4397",
+          "_rev": "-2032956729",
+          "recordTransactionData": true,
+          "transactionDataKey": "transaction:data",
+          "recordData": true,
+          "_type": {
+            "_id": "BackChannelStatusNode",
+            "name": "Backchannel Status",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "pending",
+              "displayName": "Pending"
+            },
+            {
+              "id": "inprogress",
+              "displayName": "In Progress"
+            },
+            {
+              "id": "success",
+              "displayName": "Success"
+            },
+            {
+              "id": "failure",
+              "displayName": "Failure"
+            },
+            {
+              "id": "unknown",
+              "displayName": "Unknown"
+            },
+            {
+              "id": "error",
+              "displayName": "Error"
+            }
+          ]
+        },
+        "92e831b1-b6c4-4c75-864d-753dfdd18a3d": {
+          "_id": "92e831b1-b6c4-4c75-864d-753dfdd18a3d",
+          "_rev": "-1469625571",
+          "nodes": [
+            {
+              "_id": "d45d7add-f174-46d8-b3f5-15e0818101d7",
+              "nodeType": "designer-1b565dccf3454f4b90c65516f90b6f64",
+              "nodeVersion": "1.0",
+              "displayName": "Display Node State Variables"
+            }
+          ],
+          "pageDescription": {
+            "en": "Copy the link below to initiate the back channel journey. Click next before executing and be sure to open in a different browser or private window to avoid session clashes with this journey."
+          },
+          "pageHeader": {
+            "en": "Back Channel Journey"
+          },
+          "_type": {
+            "_id": "PageNode",
+            "name": "Page Node",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Next",
+              "displayName": "Next"
+            }
+          ]
+        },
+        "506b96e0-d247-42a6-8023-44568c1f7d21": {
+          "_id": "506b96e0-d247-42a6-8023-44568c1f7d21",
+          "_rev": "-1105271256",
+          "spamDetectionTolerance": 3,
+          "spamDetectionEnabled": false,
+          "exitMessage": {},
+          "waitingMessage": {
+            "en": "Waiting for the back channel journey to start."
+          },
+          "secondsToWait": 5,
+          "exitable": false,
+          "_type": {
+            "_id": "PollingWaitNode",
+            "name": "Polling Wait Node",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "DONE",
+              "displayName": "Done"
+            }
+          ]
+        },
+        "d0755543-a702-47f5-949a-7897ee741f69": {
+          "_id": "d0755543-a702-47f5-949a-7897ee741f69",
+          "_rev": "530930985",
+          "script": "c04356f0-b6b0-44bd-98d5-cc3e4a5e3d07",
+          "nodeVersion": 1,
+          "scriptInputs": [
+            "*"
+          ],
+          "nodeType": "PollingWaitNode",
+          "_type": {
+            "_id": "ConfigProviderNode",
+            "name": "Configuration Provider",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "DONE",
+              "displayName": "Done"
+            },
+            {
+              "id": "EXITED",
+              "displayName": "Exited"
+            },
+            {
+              "id": "SPAM",
+              "displayName": "Spam"
+            },
+            {
+              "id": "CONFIGURATION_FAILED",
+              "displayName": "Configuration failure"
+            }
+          ]
+        },
+        "d86a0c71-268e-43dc-b59d-6634a2eeea73": {
+          "_id": "d86a0c71-268e-43dc-b59d-6634a2eeea73",
+          "_rev": "1465850172",
+          "message": "back channel journey successfully completed.",
+          "_type": {
+            "_id": "designer-d0a055acaedd486b91fa88eddc6fccdb",
+            "name": "User Message to Display",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Success",
+              "displayName": "Success"
+            }
+          ]
+        },
+        "4b4366df-6839-403c-a8ff-c484dcbfb1b6": {
+          "_id": "4b4366df-6839-403c-a8ff-c484dcbfb1b6",
+          "_rev": "804884124",
+          "emailSuspendMessage": {
+            "en": "Demo complete."
+          },
+          "emailTemplateName": "registration",
+          "identityAttribute": "userName",
+          "emailAttribute": "mail",
+          "objectLookup": false,
+          "_type": {
+            "_id": "EmailSuspendNode",
+            "name": "Email Suspend Node",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "outcome",
+              "displayName": "Outcome"
+            }
+          ]
+        }
+      },
+      "innerNodes": {
+        "d45d7add-f174-46d8-b3f5-15e0818101d7": {
+          "_id": "d45d7add-f174-46d8-b3f5-15e0818101d7",
+          "_rev": "828285692",
+          "nodeStateVariable": [
+            "backchannel-redirectUri"
+          ],
+          "objectAttributes": false,
+          "_type": {
+            "_id": "designer-1b565dccf3454f4b90c65516f90b6f64",
+            "name": "Display Node State Variables",
+            "collection": true,
+            "version": "1.0"
+          },
+          "_outcomes": [
+            {
+              "id": "Next",
+              "displayName": "Next"
+            }
+          ]
+        }
+      },
+      "scripts": {
+        "c04356f0-b6b0-44bd-98d5-cc3e4a5e3d07": {
+          "_id": "c04356f0-b6b0-44bd-98d5-cc3e4a5e3d07",
+          "name": "ds-front-channel-updater-generic-sample",
+          "description": null,
+          "script": "\"/*\\n * Next Generation Config Provider Node Script\\n * Updates the front channel Poll Wait Node with status updates as the Back Channel Journey progresses\\n * Logic based on the stateKey value and if not present defaults to defaultStatus\\n */\\n\\nvar config = {\\n    stateKey: \\\"transaction:data\\\",\\n    statusKey: \\\"journeyStatus\\\",\\n    defaultStatus: \\\"The back channel journey has started.\\\",\\n    secondsToWait: 3,\\n    spamDetectionEnabled: false,\\n    spamDetectionTolerance: 3,\\n    exitable: false,\\n    exitMessage: {}\\n};\\n\\nvar data = nodeState.get(config.stateKey);\\n\\nvar message = (\\n    data &&\\n    typeof data === \\\"object\\\" &&\\n    data[config.statusKey]\\n) ? data[config.statusKey] : config.defaultStatus;\\n\\nconfig = {\\n    secondsToWait: config.secondsToWait,\\n    spamDetectionEnabled: config.spamDetectionEnabled,\\n    spamDetectionTolerance: config.spamDetectionTolerance,\\n    waitingMessage: { en: message },\\n    exitable: config.exitable,\\n    exitMessage: config.exitMessage\\n};\"",
+          "default": false,
+          "language": "JAVASCRIPT",
+          "context": "CONFIG_PROVIDER_NODE_NEXT_GEN",
+          "createdBy": "id=80f5c192-7bf5-4c64-bc37-b7f5664ac7f3,ou=user,ou=am-config",
+          "creationDate": 1774007609719,
+          "lastModifiedBy": "id=80f5c192-7bf5-4c64-bc37-b7f5664ac7f3,ou=user,ou=am-config",
+          "lastModifiedDate": 1774007610358,
+          "evaluatorVersion": "2.0"
+        }
+      },
+      "emailTemplates": {
+        "registration": {
+          "_id": "emailTemplate/registration",
+          "defaultLocale": "en",
+          "enabled": true,
+          "from": "",
+          "html": {
+            "en": "<html><body><h3>This is your registration email.</h3><p><a href=\"{{object.resumeURI}}\">Email verification link</a></p></body></html>",
+            "fr": "<html><body><h3>Ceci est votre mail d'inscription.</h3><p><a href=\"{{object.resumeURI}}\">Lien de vérification email</a></p></body></html>"
+          },
+          "message": {
+            "en": "<html><head></head><body style=\"background-color: #324054; color: #5e6d82; padding: 60px; text-align: center;\"><div class=\"content\" style=\"background-color: #fff; border-radius: 4px; margin: 0 auto; padding: 48px; width: 235px;\"><h3>This is your registration email.</h3><p><a href=\"{{object.resumeURI}}\" style=\"text-decoration: none; color: #109cf1;\">Email verification link</a></p></div></body></html>",
+            "fr": "<html><head></head><body style=\"background-color: #324054; color: #5e6d82; padding: 60px; text-align: center;\"><div class=\"content\" style=\"background-color: #fff; border-radius: 4px; margin: 0 auto; padding: 48px; width: 235px;\"><h3>Ceci est votre mail d'inscription.</h3><p><a href=\"{{object.resumeURI}}\" style=\"text-decoration: none; color: #109cf1;\">Lien de vérification email</a></p></div></body></html>"
+          },
+          "mimeType": "text/html",
+          "styles": "body{background-color:#324054;color:#5e6d82;padding:60px;text-align:center}a{text-decoration:none;color:#109cf1}.content{background-color:#fff;border-radius:4px;margin:0 auto;padding:48px;width:235px}",
+          "subject": {
+            "en": "Register new account",
+            "fr": "Créer un nouveau compte"
+          }
+        }
+      },
+      "socialIdentityProviders": {},
+      "themes": [],
+      "saml2Entities": {},
+      "circlesOfTrust": {}
+    }
+  }
+}

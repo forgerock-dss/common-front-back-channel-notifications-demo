@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "amVersion": "ForgeRock Access Management 8.1.0-SNAPSHOT Build 4e714ca0ad01c0a8fde342257c60811020c3ce35 (2026-March-13 08:46)",
+    "exportDate": "2026-03-20T12:23:24.663Z",
+    "origin": "https://openam-<tenant>/am/json/node-designer/node-type/",
+    "exportedBy": "darinder.shokar@pingidentity.com",
+    "resourceVersion": "1.0"
+  },
+  "nodeTypes": {
+    "25847fefd09e42509a90afb3793e14c4-1": {
+      "serviceName": "25847fefd09e42509a90afb3793e14c4",
+      "version": 1,
+      "displayName": "Set Shared Or Transient State",
+      "description": "Sets shared or transient state values from literals or other existing shared state values",
+      "outcomes": [
+        "Success",
+        "Error"
+      ],
+      "outputs": [],
+      "inputs": [],
+      "script": "var outcome = \"Success\";\n\n// ---------- helpers ----------\nfunction isObject(x){ return x !== null && typeof x === \"object\"; }\nfunction toStr(x){ return (x === null || x === undefined) ? \"\" : String(x); }\n\nfunction resolveFromNodeState(path) {\n    var parts = String(path).trim().split(\".\");\n    if (parts.length === 0) return undefined;\n    var base = nodeState.get(parts[0]);\n    if (parts.length === 1) return base;\n\n    var cur = base;\n    for (var i = 1; i < parts.length; i++) {\n        if (!isObject(cur)) return undefined;\n        cur = cur[parts[i]];\n        if (cur === undefined || cur === null) return cur;\n    }\n    return cur;\n}\n\nfunction substitute(template) {\n    try {\n        return String(template).replace(/\\$\\{([^}]+)}/g, function(match, key){\n            var val = resolveFromNodeState(key);\n            return (val !== undefined && val !== null) ? String(val) : match;\n        });\n    } catch (e) {\n        logger.error(\"Substitution error: \" + e);\n        outcome = \"Error\";\n        return template;\n    }\n}\n\nfunction putState(stateName, key, value) {\n    if (stateName === \"SHARED\") {\n        nodeState.putShared(key, value);\n    } else if (stateName === \"TRANSIENT\") {\n        nodeState.putTransient(key, value);\n    } else {\n        logger.error(\"Invalid properties.state: \" + stateName);\n        outcome = \"Error\";\n    }\n}\n\nfunction maybeJson(value) {\n    var s = String(value).trim();\n    if ((s.charAt(0) === \"{\" && s.charAt(s.length - 1) === \"}\") ||\n        (s.charAt(0) === \"[\" && s.charAt(s.length - 1) === \"]\")) {\n        try { return JSON.parse(s); } catch (e) {}\n    }\n    return value;\n}\n\n// Define BEFORE use to avoid hoisting issues in Rhino\nvar processPair = function(stateName, pair) {\n    try {\n        var str = String(pair);\n        var eqIdx = str.indexOf(\"=\");\n        if (eqIdx < 0) {\n            logger.error(\"Invalid key=value pair (no '='): \" + str);\n            outcome = \"Error\";\n            return;\n        }\n        var lh = str.substring(0, eqIdx).trim();\n        var rh = str.substring(eqIdx + 1).trim();\n        var result = maybeJson(substitute(rh));\n\n        var dotIdx = lh.indexOf(\".\");\n        if (dotIdx >= 0) {\n            var baseKey = lh.substring(0, dotIdx);\n            var subKey  = lh.substring(dotIdx + 1);\n            var current = nodeState.get(baseKey);\n            if (!isObject(current)) current = {};\n            current[subKey] = result;\n            putState(stateName, baseKey, current);\n        } else {\n            putState(stateName, lh, result);\n        }\n    } catch (e) {\n        logger.error(\"Error processing pair '\" + pair + \"': \" + e);\n        outcome = \"Error\";\n    }\n};\n\n// ---------- main ----------\ntry {\n    var stateName = properties.state;\n    var values = properties.values;\n\n    if (!values) {\n        logger.error(\"properties.values is empty\");\n        outcome = \"Error\";\n    } else if (values.iterator && typeof values.length !== \"number\") {\n        var it = values.iterator();\n        while (it.hasNext()) {\n            processPair(stateName, String(it.next()));\n        }\n    } else {\n        for (var i = 0; i < values.length; i++) {\n            processPair(stateName, String(values[i]));\n        }\n    }\n} catch (outerError) {\n    logger.error(\"Unexpected error: \" + outerError);\n    outcome = \"Error\";\n}\n",
+      "errorOutcome": false,
+      "tags": [
+        "utilities"
+      ],
+      "properties": {
+        "state": {
+          "title": "state",
+          "description": "nodeState.putShared or nodeState.putTransient",
+          "type": "STRING",
+          "required": true,
+          "defaultValue": "SHARED",
+          "options": {
+            "SHARED": "SHARED",
+            "TRANSIENT": "TRANSIENT"
+          },
+          "multivalued": false
+        },
+        "values": {
+          "title": "List of values to create in shared state. Of the form \"key=value\", \"key.subkey=value\", \"key=$key.subkey.subsubkey\", etc",
+          "description": "List of values to create in shared state. Of the form \"key=value\", \"key.subkey=value\", \"key=$key.subkey.subsubkey\", etc",
+          "type": "STRING",
+          "required": true,
+          "multivalued": true
+        }
+      }
+    },
+    "1b565dccf3454f4b90c65516f90b6f64-1": {
+      "serviceName": "1b565dccf3454f4b90c65516f90b6f64",
+      "version": 1,
+      "displayName": "Display Node State Variables",
+      "description": "Output the contents of a specific variable from nodeState onscreen to aid troubleshooting.",
+      "outcomes": [
+        "Next"
+      ],
+      "outputs": [],
+      "inputs": [],
+      "script": "/**\n * If selected displays contents of objectAttributes across shared and transientState\n * Handles the scenario where objectAttributes is not present in nodeState\n * Displays multiple nodeState variables specified in the node property array 'nodeStateVariable'\n * Handles case where key is not present in nodeState\n * v1_0\n */\n\nvar nodeOutcomes = { \n    NEXT: \"Next\" \n};\n\n(function () {\n    logger.error(scriptName + \": Node execution started\");\n\n    if (callbacks.isEmpty()) {\n        const objectAttributes = properties.objectAttributes;      \n        const stateVariables   = properties.nodeStateVariable || [];\n\n        //Handle objectAttributes from both shared and transient state\n        if (objectAttributes) {\n            const oa = nodeState.getObject(\"objectAttributes\");\n            if (oa) {\n                const keys = (typeof oa.keySet === \"function\") ? oa.keySet().toArray() : Object.keys(oa);\n                keys.forEach(function (key) {\n                    //Guards against TypeErrors\n                    const val = (typeof oa.get === \"function\") ? oa.get(key) : oa[key];\n                    callbacksBuilder.stringAttributeInputCallback(String(key), \"objectAttributes.\" + String(key), String(val), false);\n\n                });\n                logger.debug(scriptName + \": objectAttributes processed (\" + keys.length + \" keys).\");\n            } else {\n                logger.error(scriptName + \": objectAttributes not present in nodeState.\");\n                callbacksBuilder.textOutputCallback(0, \"Variable objectAttributes not found in nodeState.\");\n            }\n        }\n\n        //Handle getting config defined variables from NodeState, with error handling if the variable is not present in state\n        if (stateVariables.length > 0) {\n            stateVariables.forEach(function (key) {\n                var value = nodeState.get(key);\n\n                if (value === null || value === undefined) {\n                    var msg = \"Variable \" + key + \" not found in nodeState.\";\n                    logger.error(scriptName + \": \" + msg);\n                    callbacksBuilder.textOutputCallback(0, msg);\n                    return;\n                }\n\n                callbacksBuilder.stringAttributeInputCallback(String(key), \"nodeState.\" + String(key), String(value), false);\n                logger.debug(scriptName + \": nodeState variable '\" + key + \"' = \" + value);\n            });\n        } else {\n            logger.error(scriptName + \": No nodeStateVariable array defined or it's empty in node properties.\");\n            callbacksBuilder.stringAttributeInputCallback(\"Error\", \"nodeStateVariable\", \"No variables defined in node configuration\", false);\n        }\n    } else {\n        logger.error(scriptName + \": Node execution completed\");\n        action.goTo(nodeOutcomes.NEXT);\n    }\n})();",
+      "errorOutcome": false,
+      "tags": [
+        "debug",
+        "nodeState",
+        "customNode",
+        "v1_0",
+        "utilities"
+      ],
+      "properties": {
+        "nodeStateVariable": {
+          "title": "NodeState Variable Name",
+          "description": "Enter the variable to retrieve and display from nodeState.",
+          "type": "STRING",
+          "required": true,
+          "multivalued": true
+        },
+        "objectAttributes": {
+          "title": "Get ObjectAttributes?",
+          "description": "When this option is selected objectAttributes will be retrieved from both shared and transient state.",
+          "type": "BOOLEAN",
+          "required": false,
+          "defaultValue": false,
+          "multivalued": false
+        }
+      }
+    },
+    "d0a055acaedd486b91fa88eddc6fccdb-1": {
+      "serviceName": "d0a055acaedd486b91fa88eddc6fccdb",
+      "version": 1,
+      "displayName": "User Message to Display",
+      "description": "A node which displays a message to display to the user ",
+      "outcomes": [
+        "Success"
+      ],
+      "outputs": [],
+      "inputs": [],
+      "script": "/**\n * Main function\n */\n\n(function () {\n  logger.error(scriptName + \"Node execution started\");\n\n  if (callbacks.isEmpty()) {\n    var userMessage = properties.message;\n    callbacksBuilder.textOutputCallback(0, userMessage);\n  } else {\n    logger.error(scriptName + \"Node execution completed\");\n    action.goTo(\"Success\");\n  }\n})();",
+      "errorOutcome": false,
+      "tags": [
+        "success",
+        "userMessage",
+        "customNode",
+        "utilities"
+      ],
+      "properties": {
+        "message": {
+          "title": "Message to display",
+          "description": "Message to display to the user",
+          "type": "STRING",
+          "required": true,
+          "multivalued": false
+        }
+      }
+    },
+    "e4a9455782434716b7f3e9540006d7f1-1": {
+      "serviceName": "e4a9455782434716b7f3e9540006d7f1",
+      "version": 1,
+      "displayName": "Set Front Channel Status",
+      "description": "Sets the status which the front channel can read and display to the user as the back channel journey progresses.",
+      "outcomes": [
+        "Success",
+        "Error"
+      ],
+      "outputs": [],
+      "inputs": [],
+      "script": "/**\n * Script to update sharedState with a key and object value retrieved from properties.value of the custom node \n * This sharedState key/value is then used by the Backchannel Notification node to update the front channel state\n * Example property values:\n *   journeyStatusKey      = \"transaction:notify\"\n *   journeyStatusProperty = \"journeyStatus\"\n *   journeyStatusValue    = \"Front Channel Message\"\n *\n * sharedState Result:\n *   [\"transaction:notify\"] = { journeyStatus: \"Front Channel Message\" }\n */\n\nvar nodeOutcomes = {\n    SUCCESS: \"Success\",\n    ERROR: \"Error\"\n};\n\n(function () {\n    logger.error(scriptName + \": Node execution started\");\n    try {\n        var stateKey = properties.journeyStatusKey;\n        var propertyName = properties.journeyStatusProperty;\n        var propertyValue = properties.journeyStatusValue;\n        var obj = {};\n        obj[propertyName] = propertyValue;\n        nodeState.putShared(stateKey, obj);\n        logger.error(scriptName + \": Node execution completed\");\n        action.goTo(nodeOutcomes.SUCCESS);\n    } catch (e) {\n        logger.error(scriptName + \": Failed to update sharedState. Exception: \" + e);\n        action.goTo(nodeOutcomes.ERROR);\n    }\n})();",
+      "errorOutcome": false,
+      "tags": [
+        "customNode",
+        "frontChannel",
+        "backChannel",
+        "journeyStatus",
+        "utilities"
+      ],
+      "properties": {
+        "journeyStatusKey": {
+          "title": "Journey Status sharedState Key",
+          "description": "The shared state key where the message object will be stored (e.g. transaction:notify). This is the top-level key that will be updated in the journey state.",
+          "type": "STRING",
+          "required": true,
+          "defaultValue": "transaction:notify",
+          "multivalued": false
+        },
+        "journeyStatusProperty": {
+          "title": "Journey Status Property Name",
+          "description": "The name of the property inside the shared state object (e.g. journeyStatus). This defines the field that will hold the message value.",
+          "type": "STRING",
+          "required": true,
+          "defaultValue": "journeyStatus",
+          "multivalued": false
+        },
+        "journeyStatusValue": {
+          "title": "Journey Status Message",
+          "description": "The message to store in shared state. This value will be used by downstream nodes (e.g. Backchannel Notification) to update the front-channel experience.",
+          "type": "STRING",
+          "required": true,
+          "defaultValue": "Example Front Channel Message",
+          "multivalued": false
+        }
+      }
+    }
+  }
+}
