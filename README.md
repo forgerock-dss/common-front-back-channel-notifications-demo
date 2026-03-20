@@ -57,13 +57,13 @@ The following journeys will be created:
 
 ### Journey Diagrams
 
-**Front-Channel Helpdesk Journey**
+**Front Channel Journey**
 
-![Helpdesk Front Channel](images/ront_channel.png?raw=true)
+![Simple Front Channel Journey](images/front_channel.png?raw=true)
 
-**Back-Channel Customer Journey**
+**Back Channel Journey**
 
-![Customer Back Channel](images/back_channel.png?raw=true)
+![Simple Back Channel](images/back_channel.png?raw=true)
 
 
 ## Testing
